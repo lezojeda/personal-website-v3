@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Global Metadata -->
+		<meta name="generator" content="My Static Site Generator">
+
+		<!-- Canonical URL -->
+		<link rel="canonical" href="{{ canonicalURL }}">
+
+		<!-- Dynamic Meta Tags -->
+		<title>{{ pageTitle }}</title>
+		<meta name="title" content="{{ pageTitle }}">
+		<meta name="description" content="{{ description }}">
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="{{ canonicalURL }}">
+		<meta property="og:title" content="{{ pageTitle }}">
+		<meta property="og:description" content="{{ description }}">
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image">
+		<meta property="twitter:url" content="{{ canonicalURL }}">
+		<meta property="twitter:title" content="{{ pageTitle }}">
+		<meta property="twitter:description" content="{{ description }}">
+
+		<!-- Link to CSS -->
+		<link rel="stylesheet" href="/styles/global.css">
+
+	</head>
+	<body>
+		<header>
+			<nav>
+				<ul>
+					<li>
+						<a href="/">Home</a>
+					</li>
+					<li>
+						<a href="/blog">Blog</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<main>
+			{% block content %}{% endblock %}
+		</main>
+
+		<footer>
+			footer
+		</footer>
+	</body>
+</html>

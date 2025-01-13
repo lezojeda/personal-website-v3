@@ -1,0 +1,17 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+	<section>
+		<h1>Blog Posts</h1>
+		<ul>
+			{% for post in posts %}
+				<li>
+					<h2>
+						<a href="/{{ post.data.slug }}.html">{{ post.data.title }}</a>
+					</h2>
+					<p>Published on {{ post.data.pubDate }}</p>
+				</li>
+			{% endfor %}
+		</ul>
+	</section>
+{% endblock %}

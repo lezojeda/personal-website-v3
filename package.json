@@ -1,0 +1,27 @@
+{
+  "name": "personal-website-v3",
+  "version": "1.0.0",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luz-ojeda/personal-website-v3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luz-ojeda/personal-website-v3/issues"
+  },
+  "homepage": "https://github.com/luz-ojeda/personal-website-v3#readme",
+  "description": "",
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0",
+    "mkdirp": "^3.0.1",
+    "nunjucks": "^3.2.4"
+  }
+}
