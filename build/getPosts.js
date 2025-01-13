@@ -25,7 +25,10 @@ function getPosts(postsDir) {
       try {
         postMatter = matter(fileContent);
       } catch (err) {
-        console.error(`\x1b[31m Error parsing front matter in post: ${filePath} \x1b[0m\n`, err);
+        console.error(
+          `\x1b[31m Error parsing front matter in post: ${filePath} \x1b[0m\n`,
+          err,
+        );
         return null;
       }
 

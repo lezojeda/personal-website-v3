@@ -29,9 +29,8 @@ renderIndexPage(posts, SITE_TITLE, SITE_DESCRIPTION);
       await renderPostPage(post, SITE_TITLE, postOutputPath);
     } catch (err) {
       console.error(`Error generating post "${post.data.title}":`, err);
-      console.log()
+      console.log();
     }
   }
-  console.log("\x1b[32mBuild completed!\x1b[0m")
+  console.log("\x1b[32mBuild completed!\x1b[0m");
 })();
-

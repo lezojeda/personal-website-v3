@@ -2,7 +2,7 @@
 title: "Understanding TypeScript Generics"
 pubDate: 2025-01-08
 tags: ["TypeScript", "generics", "web development"]
-slug: "understanding-typescript-generics"
+slug: utg
 ---
 
 # Understanding TypeScript Generics
