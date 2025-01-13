@@ -3,7 +3,6 @@ const mkdirp = require("mkdirp");
 const { getPosts } = require("./getPosts");
 const { renderPostPage } = require("./renderPostPage");
 const { renderIndexPage } = require("./renderIndexPage");
-const { generatePagination } = require("./pagination");
 
 /** Variables **/
 const SITE_TITLE = "Lucas Ezequiel Ojeda";
@@ -19,15 +18,20 @@ const posts = getPosts(postsDir);
 
 /** Pages **/
 
-// Generate the index page
+// Index page
 renderIndexPage(posts, SITE_TITLE, SITE_DESCRIPTION);
 
-// Generate individual post pages
+// Individual post pages
 (async () => {
   for (const post of posts) {
     const postOutputPath = path.join("dist", `${post.data.slug}`);
-    await renderPostPage(post, SITE_TITLE, postOutputPath);
+    try {
+      await renderPostPage(post, SITE_TITLE, postOutputPath);
+    } catch (err) {
+      console.error(`Error generating post "${post.data.title}":`, err);
+      console.log()
+    }
   }
-
-  console.log("Build complete!");
+  console.log("\x1b[32mBuild completed!\x1b[0m")
 })();
+

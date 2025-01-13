@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const matter = require('gray-matter');
+const matter = require("gray-matter");
 
 function sortByMostRecent(posts) {
   return posts.sort((a, b) => {
@@ -13,14 +13,25 @@ function sortByMostRecent(posts) {
 
 module.exports = { sortByMostRecent };
 
-
 function getPosts(postsDir) {
-  const posts = fs.readdirSync(postsDir).map((fileName) => {
-    const filePath = path.join(postsDir, fileName);
-    const fileContent = fs.readFileSync(filePath, "utf-8");
+  const posts = fs
+    .readdirSync(postsDir)
+    .map((fileName) => {
+      const filePath = path.join(postsDir, fileName);
+      const fileContent = fs.readFileSync(filePath, "utf-8");
 
-    return matter(fileContent)
-  });
+      let postMatter;
+
+      try {
+        postMatter = matter(fileContent);
+      } catch (err) {
+        console.error(`\x1b[31m Error parsing front matter in post: ${filePath} \x1b[0m\n`, err);
+        return null;
+      }
+
+      return postMatter;
+    })
+    .filter((post) => post !== null);
 
   return sortByMostRecent(posts);
 }

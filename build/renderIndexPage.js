@@ -6,16 +6,16 @@ const path = require("path");
 const env = nunjucks.configure("src");
 
 function renderIndexPage(posts, siteTitle, siteDescription) {
-  const postsWithFormatteDate = posts.map(post => {
-    const formattedDate = formatDate(post.data.pubDate)
+  const postsWithFormatteDate = posts.map((post) => {
+    const formattedDate = formatDate(post.data.pubDate);
     return {
       ...post,
       data: {
         ...post.data,
-        pubDate: formattedDate
-      }
-    }
-  })
+        pubDate: formattedDate,
+      },
+    };
+  });
 
   const context = {
     pageTitle: siteTitle,
