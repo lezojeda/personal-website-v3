@@ -1,8 +1,8 @@
 const path = require("path");
-const { getPosts } = require("./getPosts");
-const { renderPostPage } = require("./renderPostPage");
-const { renderBlogPage } = require("./renderBlogPage");
-const { renderPage } = require("./renderPage")
+const { getPosts } = require("./scripts/getPosts");
+const { renderPostPage } = require("./scripts/renderPostPage");
+const { renderBlogPage } = require("./scripts/renderBlogPage");
+const { renderPage } = require("./scripts/renderPage")
 const fs = require('fs')
 
 /** Variables **/
@@ -10,21 +10,21 @@ const SITE_TITLE = "Lucas Ezequiel Ojeda";
 const SITE_DESCRIPTION =
   "The personal web page of a web developer, sometimes cook and bookworm from Buenos Aires, Argentina";
 
-const outputDir = path.join(__dirname, "..", "dist");
+const outputDir = path.join(__dirname, "dist");
 
 if (!fs.existsSync(outputDir)){
   fs.mkdirSync(outputDir);
 }
 
-/** Get posts **/
-const postsDir = path.join(__dirname, "..", "content", "blog");
-const posts = getPosts(postsDir);
-
 /** Pages **/
 
+// Get posts and render blog page
+const postsDir = path.join(__dirname, "content", "blog");
+const posts = getPosts(postsDir);
 renderBlogPage(posts, SITE_TITLE, SITE_DESCRIPTION);
 
-fs.readdirSync(path.join(__dirname, "..", "src"))
+// Look for pages in src and render
+fs.readdirSync(path.join(__dirname, "src"))
   .filter((file) => file.endsWith(".njk") && file !== "blog.njk")
   .forEach((templateFile) => {
     const templateName = path.basename(templateFile, ".njk");

@@ -1,3 +1,9 @@
 - get variables out of build.js, they shouldnt be there
 - remember what a canonical url is and configure it correctly
+- generate activity feed
+- spanish/english support
+- pictures page
+- microblog page
+- about me page
+- reading list page
 - add css -> https://fullstackopen.com/en/part3/node_js_and_express

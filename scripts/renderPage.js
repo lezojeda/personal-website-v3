@@ -1,7 +1,5 @@
 const nunjucks = require("nunjucks");
 const fs = require("fs");
-const path = require("path");
-const mkdirp = require("mkdirp");
 const env = nunjucks.configure("src");
 
 function renderPage(templateName, outputPath, context = {}) {

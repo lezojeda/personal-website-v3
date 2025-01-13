@@ -21,7 +21,7 @@ async function renderPostPage(post, siteTitle, outputPath) {
     tags: post.data.tags
   };
 
-  const postHTML = env.render("layouts/post.njk", context);
+  const postHTML = env.render("templates/post.njk", context);
 
   // Check if file has changed before writing
   const fileChanged = await checkIfFileChanged(outputPath, postHTML);

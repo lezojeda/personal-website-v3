@@ -7,7 +7,7 @@ This project builds a static blog site by rendering pages from Markdown files an
 1. **Project Structure**
 
    - Blog posts are stored in Markdown files under the `content/blog` directory.
-   - Templates for pages are located in the `src/layouts` directory, using [Nunjucks](https://mozilla.github.io/nunjucks/) for rendering.
+   - Templates for pages are located in the `src/templates` directory, using [Nunjucks](https://mozilla.github.io/nunjucks/) for rendering.
    - The output directory for the generated site is `dist`.
 
 2. **Build Steps**
