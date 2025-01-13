@@ -6,6 +6,18 @@ const port = 3000;
 
 const distPath = path.join(__dirname, "dist")
 
+app.get("/", (req, res) => {
+	res.sendFile(path.join(distPath, "home.html"));
+});
+
+app.get("/blog", (req, res) => {
+	res.sendFile(path.join(distPath, "blog.html"));
+});
+
+app.get("/feed", (req, res) => {
+	res.sendFile(path.join(distPath, "feed.html"));
+});
+
 function getHTMLContent(slug) {
 	const filePath = path.join(distPath, slug);
 	try {
@@ -33,10 +45,6 @@ function createDynamicRoutes() {
 }
 
 createDynamicRoutes();
-
-app.get("/", (req, res) => {
-	res.sendFile(path.join(distPath, "index.html"));
-});
 
 app.use((req, res) => {
 	res.status(404).send("Page not found");

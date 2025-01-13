@@ -5,7 +5,7 @@ const path = require("path");
 
 const env = nunjucks.configure("src");
 
-function renderIndexPage(posts, siteTitle, siteDescription) {
+function renderBlogPage(posts, siteTitle, siteDescription) {
   const postsWithFormatteDate = posts.map((post) => {
     const formattedDate = formatDate(post.data.pubDate);
     return {
@@ -24,8 +24,8 @@ function renderIndexPage(posts, siteTitle, siteDescription) {
     posts: postsWithFormatteDate,
   };
 
-  const indexHTML = env.render("index.njk", context);
-  fs.writeFileSync(path.join("dist", "index.html"), indexHTML);
+  const blogHTML = env.render("blog.njk", context);
+  fs.writeFileSync(path.join("dist", "blog.html"), blogHTML);
 }
 
-module.exports = { renderIndexPage };
+module.exports = { renderBlogPage };

@@ -15,7 +15,7 @@ This project builds a static blog site by rendering pages from Markdown files an
    - **Initialize Output Directory**: The `mkdirp` library ensures the `dist` directory exists.
    - **Metadata Extraction**: `getPosts` reads posts metadata (e.g., title, publication date) from Markdown files in `content/blog` and sorts them.
    - **Index Page Generation**:
-     - `renderIndexPage` generates the main index page, listing the latest 5 posts.
+     - `renderBlogPage` generates the main index page, listing the latest 5 posts.
      - Pagination is created using `generatePagination` for additional pages.
    - **Post Pages Generation**: Each individual blog post is rendered as an HTML page using `renderPostPage`.
 
@@ -24,7 +24,7 @@ This project builds a static blog site by rendering pages from Markdown files an
 
    - `generateMetadata.js`: Extracts metadata from Markdown posts.
    - `renderPostPage.js`: Renders individual post pages.
-   - `renderIndexPage.js`: Renders the main index page and paginated pages.
+   - `renderBlogPage.js`: Renders the main index page and paginated pages.
    - `pagination.js`: Handles splitting posts into paginated groups.
 
 4. **Build Output**

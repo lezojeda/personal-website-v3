@@ -18,6 +18,7 @@ async function renderPostPage(post, siteTitle, outputPath) {
     description: post.content.slice(0, 150),
     pageTitle: `${post.data.title} - ${siteTitle}`,
     pubDate: formatDate(post.data.pubDate, true),
+    tags: post.data.tags
   };
 
   const postHTML = env.render("layouts/post.njk", context);
