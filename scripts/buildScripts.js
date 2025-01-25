@@ -1,9 +1,11 @@
 const path = require("path");
 const fs = require("fs");
+const PATHS = require("../path-config");
 
 function buildJavascriptFiles() {
-	const src = path.join(__dirname, "..", "src", "scripts");
-	const dest = path.join("dist", "scripts");
+	const src = path.join(PATHS.SRC, "scripts");
+	const dest = path.join(PATHS.DIST, "scripts");
+
 	if (!fs.existsSync(src)) return;
 
 	const entries = fs.readdirSync(src, { withFileTypes: true });

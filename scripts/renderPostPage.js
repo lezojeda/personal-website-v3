@@ -1,36 +1,41 @@
-const nunjucks = require("nunjucks");
-const { formatDate, checkIfFileChanged } = require("./utils");
-const markdownIt = require("markdown-it");
-const markdownItAnchor = require("markdown-it-anchor");
-const md = markdownIt().use(markdownItAnchor);
+const { formatDate, checkIfFileChanged, parseMarkdown, configureNunjucksEnv } = require("./utils");
+const { render } = require("./renderPage");
 const fs = require("fs");
+const PATHS = require("../path-config");
 
-function parseMarkdown(content) {
-	return md.render(content);
-}
-
-const env = nunjucks.configure("src");
-
+/**
+ * Renders a blog post page
+ * @param {Post} post - Post object containing content and metadata
+ * @param {string} outputPath - Full path where the rendered HTML will be saved
+ * @param {string} lang - Language code ('en' or 'es')
+ * @throws {Error} If rendering or file writing fails
+ */
 async function renderPostPage(post, outputPath, lang) {
 	const context = {
 		content: parseMarkdown(post.content),
 		description: post.content.slice(0, 150),
-		pageTitle: `${post.data.title}`,
+		pageName: post.data.slug,
+		pageTitle: post.data.title,
 		pubDate: formatDate(post.data.pubDate, lang, true),
 		tags: post.data.tags,
+		translationSlug: post.data.translationSlug,
 	};
 
-	const postHTML = env.render("templates/post.njk", context);
-
-	// Check if file has changed before writing
 	if (fs.existsSync(outputPath)) {
-		const fileChanged = await checkIfFileChanged(outputPath, postHTML);
+		const env = configureNunjucksEnv(lang, [PATHS.TEMPLATES]);
+		const newHTML = env.render("post.njk", context);
+		const fileChanged = await checkIfFileChanged(outputPath, newHTML);
 		if (!fileChanged) return;
 	}
 
-	fs.writeFileSync(outputPath, postHTML);
+	render({
+		templateName: "post.njk",
+		outputPath,
+		context,
+		lang,
+	});
+
 	console.log(`Post ${post.data.slug} updated or created.`);
-	// TODO: remember to serve posts as HTML explicitly somehow
 }
 
 module.exports = { renderPostPage };

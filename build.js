@@ -6,27 +6,32 @@ const { renderPage } = require("./scripts/renderPage");
 const { buildJavascriptFiles } = require("./scripts/buildScripts");
 const fs = require("fs");
 const constants = require("./constants");
+const PATHS = require("./path-config");
 
-const outputDir = "./dist";
-
-if (!fs.existsSync(outputDir)) {
-	fs.mkdirSync(outputDir);
+function cleanDirectory(directory) {
+	if (fs.existsSync(directory)) {
+		fs.rmSync(directory, { recursive: true });
+	}
+	fs.mkdirSync(directory);
 }
 
-buildJavascriptFiles()
+// Clean and create dist directory
+cleanDirectory(PATHS.DIST);
+
+buildJavascriptFiles();
 
 constants.LANGUAGES.forEach(lang => {
-	/** Pages **/
-	const langOutputDir = lang === "en" ? outputDir : `${outputDir}/es`
-
+	/** Setup output directory **/
+	const langOutputDir = PATHS.getOutputDir(lang);
 	if (!fs.existsSync(langOutputDir)) {
 		fs.mkdirSync(langOutputDir, { recursive: true });
 	}
 
+	/** Get posts for current language **/
 	const posts = getPosts(lang);
 
 	/** Render Pages **/
-	const pagesDir = lang === "en" ? "./src/pages" : "./src/pages/es";
+	const pagesDir = PATHS.getPagesDir(lang);
 	const pagesFiles = fs.readdirSync(pagesDir, { withFileTypes: true });
 
 	pagesFiles.forEach(pageFile => {
@@ -46,7 +51,7 @@ constants.LANGUAGES.forEach(lang => {
 	/** Individual Posts Pages **/
 	(async () => {
 		for (const post of posts) {
-			const postOutputPath = path.join(langOutputDir, `${post.data.slug}`);
+			const postOutputPath = path.join(langOutputDir, `${post.data.slug}.html`);
 			try {
 				await renderPostPage(post, postOutputPath, lang);
 			} catch (err) {

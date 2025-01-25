@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const matter = require("gray-matter");
+const PATHS = require("../path-config");
 
 function sortByMostRecent(posts) {
 	return posts.sort((a, b) => {
@@ -11,10 +12,8 @@ function sortByMostRecent(posts) {
 	});
 }
 
-module.exports = { sortByMostRecent };
-
 function getPosts(lang = "en") {
-	const postsDir = path.join(__dirname, "..", "content", "blog", lang)
+	const postsDir = PATHS.getBlogDir(lang);
 
 	const posts = fs
 		.readdirSync(postsDir)

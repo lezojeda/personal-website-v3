@@ -2,11 +2,11 @@ const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
 const crypto = require("crypto");
 const fs = require("fs");
-const md = markdownIt().use(markdownItAnchor);
-const path = require("path");
 const nunjucks = require("nunjucks");
+const PATHS = require("../path-config");
 
 function parseMarkdown(content) {
+	const md = markdownIt().use(markdownItAnchor);
 	return md.render(content);
 }
 
@@ -54,10 +54,11 @@ async function checkIfFileChanged(outputPath, newContent) {
 	return true;
 }
 
-function configureNunjucksEnv(lang) {
-	const pagesPath = path.join(__dirname, "..", lang === "en" ? "/src/pages" : "/src/pages/es");
-	const templatesPath = path.join(__dirname, "..", "src/templates");
-	return nunjucks.configure([pagesPath, templatesPath]);
+function configureNunjucksEnv(lang, templatePaths) {
+	const defaultPaths = [PATHS.getPagesDir(lang), PATHS.TEMPLATES];
+
+	const paths = templatePaths || defaultPaths;
+	return nunjucks.configure(paths);
 }
 
-module.exports = { formatDate, parseMarkdown, checkIfFileChanged, configureNunjucksEnv };
+module.exports = { parseMarkdown, formatDate, checkIfFileChanged, configureNunjucksEnv };

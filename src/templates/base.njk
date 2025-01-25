@@ -50,10 +50,20 @@
 					</li>
 					<ul class="language-switcher">
 						<li>
-							<button data-lang="en" aria-label="Switch to English">🇺🇸</button>
+							<button 
+								data-lang="en" 
+								{% if translationSlug %}data-translation="{{ translationSlug }}"{% endif %}
+								aria-label="Switch to English">
+								🇺🇸
+							</button>
 						</li>
 						<li>
-							<button data-lang="es" aria-label="Switch to Spanish">🇪🇸</button>
+							<button 
+								data-lang="es" 
+								{% if translationSlug %}data-translation="{{ translationSlug }}"{%endif%}
+								aria-label="Switch to Spanish">
+								🇪🇸
+							</button>
 						</li>
 					</ul>
 			</ul>
@@ -65,7 +75,7 @@
 	</main>
 
 	<footer>
-			footer
-	</footer>
+				footer
+		</footer>
 </body>
 </html>

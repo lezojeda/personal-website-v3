@@ -8,6 +8,4 @@
 
 ## what i was doing when I left
 
-language switching works only for current page, but switching pages it resets since it takes the values from the built html file
-
-nav links and their urls should be built from build.js and language.js should only change the current route + manage local storage
+handle language switching from posts that have translation and those that don't have, we are currently doing that through translationSlug in the frontmatter, see that
