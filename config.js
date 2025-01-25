@@ -5,6 +5,10 @@ const URL_MAPPINGS = {
 		en: "about",
 		es: "sobre-mi",
 	},
+	contact: {
+		en: "contact",
+		es: "contacto",
+	},
 };
 
 const PATHS = {
