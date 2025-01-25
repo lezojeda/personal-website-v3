@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const {URL_MAPPINGS} = require("../../../config");
-const { PATHS } = require("../path-config");
+const {URL_MAPPINGS, PATHS} = require("../../../config");
 
 function buildBrowserConfig() {
 	const configContent = `window.URL_TRANSLATIONS = ${JSON.stringify(URL_MAPPINGS, null, 2)};`;
