@@ -1,8 +1,8 @@
 const fs = require("fs");
-const constants = require("../constants");
+const constants = require("../config/constants");
 const path = require("path");
 const { configureNunjucksEnv } = require("./utils");
-const { URL_MAPPINGS } = require("../path-config");
+const { URL_MAPPINGS } = require("../../config");
 
 /**
  * @typedef {Object} RenderOptions
@@ -19,25 +19,19 @@ const { URL_MAPPINGS } = require("../path-config");
  * @throws {Error} If template rendering or file writing fails
  */
 function render(options) {
-    const {
-        templateName,
-        outputPath,
-        context = {},
-        lang,
-        templatePaths
-    } = options;
+	const { templateName, outputPath, context = {}, lang, templatePaths } = options;
 
-    const env = templatePaths 
-        ? configureNunjucksEnv(lang, templatePaths)
-        : configureNunjucksEnv(lang);
+	const env = templatePaths
+		? configureNunjucksEnv(lang, templatePaths)
+		: configureNunjucksEnv(lang);
 
-    const html = env.render(templateName, {
-        pageTitle: `${constants.SITE_TITLE} - ${context.pageName || templateName}`,
-        lang,
-        ...context
-    });
+	const html = env.render(templateName, {
+		pageTitle: `${constants.SITE_TITLE} - ${context.pageName || templateName}`,
+		lang,
+		...context,
+	});
 
-    fs.writeFileSync(outputPath, html, "utf-8");
+	fs.writeFileSync(outputPath, html, "utf-8");
 }
 
 /**
@@ -47,20 +41,18 @@ function render(options) {
  * @param {string} lang - Language code ('en' or 'es')
  */
 function renderPage(pageFile, langOutputDir, lang) {
-    const pageName = path.basename(pageFile, ".njk");
-    const mapping = URL_MAPPINGS[pageName];
-    const outputFilename = mapping 
-        ? `${mapping[lang]}.html`
-        : `${pageName}.html`;
-    
-    render({
-        templateName: pageFile,
-        outputPath: path.join(langOutputDir, outputFilename),
-        context: {
-            pageName,
-        },
-        lang
-    });
+	const pageName = path.basename(pageFile, ".njk");
+	const mapping = URL_MAPPINGS[pageName];
+	const outputFilename = mapping ? `${mapping[lang]}.html` : `${pageName}.html`;
+
+	render({
+		templateName: pageFile,
+		outputPath: path.join(langOutputDir, outputFilename),
+		context: {
+			pageName,
+		},
+		lang,
+	});
 }
 
 module.exports = { render, renderPage };

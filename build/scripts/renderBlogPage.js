@@ -10,23 +10,23 @@ const { render } = require("./renderPage");
  * @throws {Error} If rendering or file writing fails
  */
 function renderBlogPage(posts, langOutputDir, lang) {
-    const postsWithFormattedDate = posts.map(post => ({
-        ...post,
-        data: {
-            ...post.data,
-            pubDate: formatDate(post.data.pubDate, lang),
-        },
-    }));
+	const postsWithFormattedDate = posts.map(post => ({
+		...post,
+		data: {
+			...post.data,
+			pubDate: formatDate(post.data.pubDate, lang),
+		},
+	}));
 
-    render({
-        templateName: "blog.njk",
-        outputPath: path.join(langOutputDir, "blog.html"),
-        context: { 
-            posts: postsWithFormattedDate,
-            pageName: "blog"
-        },
-        lang
-    });
+	render({
+		templateName: "blog.njk",
+		outputPath: path.join(langOutputDir, "blog.html"),
+		context: {
+			posts: postsWithFormattedDate,
+			pageName: "blog",
+		},
+		lang,
+	});
 }
 
 module.exports = { renderBlogPage };

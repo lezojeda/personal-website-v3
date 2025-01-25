@@ -9,7 +9,7 @@ const URL_MAPPINGS = {
 
 const PATHS = {
 	SRC: path.join(__dirname, "src"),
-	CONTENT: path.join(__dirname, "content"),
+	CONTENT: path.join(__dirname, "src", "content"),
 	TEMPLATES: path.join(__dirname, "src", "templates"),
 
 	// Output paths
@@ -17,7 +17,7 @@ const PATHS = {
 
 	// Helper functions for language-specific paths
 	getPagesDir: lang => path.join(__dirname, "src", "pages", lang === "es" ? "es" : ""),
-	getBlogDir: lang => path.join(__dirname, "content", "blog", lang),
+	getBlogDir: lang => path.join(__dirname, "src", "content", "blog", lang),
 	getOutputDir: lang => path.join(__dirname, "dist", lang === "es" ? "es" : ""),
 };
 

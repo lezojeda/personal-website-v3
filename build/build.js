@@ -5,9 +5,9 @@ const { renderBlogPage } = require("./scripts/renderBlogPage");
 const { renderPage } = require("./scripts/renderPage");
 const { buildJavascriptFiles } = require("./scripts/buildScripts");
 const fs = require("fs");
-const constants = require("./constants");
-const { PATHS } = require("./path-config");
-const { buildBrowserConfig } = require("./i18n/buildConfig");
+const constants = require("./config/constants");
+const { PATHS } = require("../config");
+const { buildBrowserConfig } = require("./config/i18n/buildConfig");
 
 function cleanDirectory(directory) {
 	if (fs.existsSync(directory)) {

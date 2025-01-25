@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const matter = require("gray-matter");
-const { PATHS } = require("../path-config");
+const { PATHS } = require("../../config");
 
 function sortByMostRecent(posts) {
 	return posts.sort((a, b) => {
