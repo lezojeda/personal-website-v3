@@ -54,11 +54,10 @@ async function checkIfFileChanged(outputPath, newContent) {
 	return true;
 }
 
-function configureNunjucksEnv(lang, templatePaths) {
-	const defaultPaths = [PATHS.getPagesDir(lang), PATHS.TEMPLATES];
+function configureNunjucksEnv(lang) {
+	const defaultPaths = [PATHS.getPagesDir(lang), PATHS.TEMPLATES, PATHS.INCLUDES];
 
-	const paths = templatePaths || defaultPaths;
-	return nunjucks.configure(paths);
+	return nunjucks.configure(defaultPaths);
 }
 
 module.exports = { parseMarkdown, formatDate, checkIfFileChanged, configureNunjucksEnv };

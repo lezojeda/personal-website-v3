@@ -1,11 +1,9 @@
 - generate activity feed TODO
-- spanish/english support IN PROGRESS
 - pictures page TODO
 - microblog page TODO
 - about me page TODO
 - reading list page TODO
 - add css -> https://fullstackopen.com/en/part3/node_js_and_express TODO
+- footer
 
 ## what i was doing when I left
-
-handle language switching from posts that have translation and those that don't have, we are currently doing that through translationSlug in the frontmatter, see that

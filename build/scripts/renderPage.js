@@ -10,7 +10,6 @@ const { URL_MAPPINGS } = require("../../config");
  * @property {string} outputPath - Full path where the rendered HTML will be saved
  * @property {Object} [context={}] - Data to be passed to the template
  * @property {string} lang - Language code ('en' or 'es')
- * @property {string[]} [templatePaths] - Optional array of paths to look for templates
  */
 
 /**
@@ -19,11 +18,9 @@ const { URL_MAPPINGS } = require("../../config");
  * @throws {Error} If template rendering or file writing fails
  */
 function render(options) {
-	const { templateName, outputPath, context = {}, lang, templatePaths } = options;
+	const { templateName, outputPath, context = {}, lang } = options;
 
-	const env = templatePaths
-		? configureNunjucksEnv(lang, templatePaths)
-		: configureNunjucksEnv(lang);
+	const env = configureNunjucksEnv(lang);
 
 	const html = env.render(templateName, {
 		pageTitle: `${constants.SITE_TITLE} - ${context.pageName || templateName}`,

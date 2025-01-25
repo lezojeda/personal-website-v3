@@ -22,7 +22,7 @@ async function renderPostPage(post, outputPath, lang) {
 	};
 
 	if (fs.existsSync(outputPath)) {
-		const env = configureNunjucksEnv(lang, [PATHS.TEMPLATES]);
+		const env = configureNunjucksEnv(lang);
 		const newHTML = env.render("post.njk", context);
 		const fileChanged = await checkIfFileChanged(outputPath, newHTML);
 		if (!fileChanged) return;

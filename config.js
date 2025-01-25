@@ -15,6 +15,7 @@ const PATHS = {
 	SRC: path.join(__dirname, "src"),
 	CONTENT: path.join(__dirname, "src", "content"),
 	TEMPLATES: path.join(__dirname, "src", "templates"),
+	INCLUDES: path.join(__dirname, "src", "templates", "includes"),
 
 	// Output paths
 	DIST: path.join(__dirname, "dist"),
