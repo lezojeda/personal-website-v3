@@ -1,12 +1,12 @@
 const express = require("express");
-const path = require("path");
 const fs = require("fs");
+const path = require("path");
 const app = express();
 const port = 3000;
 
-const distPath = path.join(__dirname, "dist");
+const { PATHS, URL_MAPPINGS } = require('./path-config');
 
-app.use(express.static(distPath, {
+app.use(express.static(PATHS.DIST, {
 	extensions: ['html'],
 	setHeaders: (res, path, stat) => {
 		if (path.endsWith('.html')) {
@@ -15,14 +15,25 @@ app.use(express.static(distPath, {
 	}
 }));
 
+// Handle mapped URLs such as about/sobre-mi or contact/contacto
+Object.entries(URL_MAPPINGS).forEach(([pageName, mapping]) => {
+    app.get(`/${mapping.en}`, (req, res) => {
+        res.sendFile(path.join(PATHS.getPagesDir('en'), `${pageName}.html`));
+    });
+    
+    app.get(`/es/${mapping.es}`, (req, res) => {
+        res.sendFile(path.join(PATHS.getPagesDir('es'), `${pageName}.html`));
+    });
+});
+
 app.get(['/', '/es', '/es/'], (req, res) => {
-    const lang = req.path.startsWith('/es') ? 'es' : '';
-    res.sendFile(path.join(distPath, lang, 'home.html'));
+    const lang = req.path.startsWith('/es') ? 'es' : 'en';
+    res.sendFile(path.join(PATHS.getOutputDir(lang), 'home.html'));
 });
 
 app.get('/:slug', (req, res, next) => {
     const { slug } = req.params;
-    const filePath = path.join(distPath, `${slug}.html`);
+    const filePath = path.join(PATHS.DIST, `${slug}.html`);
     
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
@@ -34,7 +45,7 @@ app.get('/:slug', (req, res, next) => {
 // Handle Spanish dynamic routes
 app.get('/es/:slug', (req, res, next) => {
     const { slug } = req.params;
-    const filePath = path.join(distPath, 'es', `${slug}.html`);
+    const filePath = path.join(PATHS.DIST, 'es', `${slug}.html`);
     
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);

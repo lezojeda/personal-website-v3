@@ -2,6 +2,7 @@ const fs = require("fs");
 const constants = require("../constants");
 const path = require("path");
 const { configureNunjucksEnv } = require("./utils");
+const { URL_MAPPINGS } = require("../path-config");
 
 /**
  * @typedef {Object} RenderOptions
@@ -47,14 +48,19 @@ function render(options) {
  */
 function renderPage(pageFile, langOutputDir, lang) {
     const pageName = path.basename(pageFile, ".njk");
+    const mapping = URL_MAPPINGS[pageName];
+    const outputFilename = mapping 
+        ? `${mapping[lang]}.html`
+        : `${pageName}.html`;
     
     render({
         templateName: pageFile,
-        outputPath: path.join(langOutputDir, `${pageName}.html`),
+        outputPath: path.join(langOutputDir, outputFilename),
         context: {
             pageName,
         },
         lang
     });
 }
+
 module.exports = { render, renderPage };

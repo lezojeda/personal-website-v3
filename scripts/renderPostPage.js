@@ -1,7 +1,7 @@
 const { formatDate, checkIfFileChanged, parseMarkdown, configureNunjucksEnv } = require("./utils");
 const { render } = require("./renderPage");
 const fs = require("fs");
-const PATHS = require("../path-config");
+const { PATHS } = require("../path-config");
 
 /**
  * Renders a blog post page

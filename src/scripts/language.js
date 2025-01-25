@@ -1,7 +1,4 @@
 function getTranslationSlug(newLang) {
-	const isPost = document.querySelector('[data-type="post"]') !== null;
-	if (!isPost) return null;
-	
 	const button = document.querySelector(`[data-lang="${newLang}"]`);
 	return button?.hasAttribute("data-translation") ? button.dataset.translation : null;
 }
@@ -18,10 +15,26 @@ function getNewPath(newLang, currentPath) {
 		return newLang === "es" ? "/es" : "/";
 	}
 
-	// For non-post pages, just add/remove the /es prefix
-	return newLang === "es" 
-		? currentPath === "/" ? "/es" : `/es${currentPath}`
-		: currentPath === "/es" ? "/" : currentPath.replace("/es", "");
+	// For pages, check translations
+	const currentSlug = currentPath.replace("/es/", "").replace("/", "");
+	if (!currentSlug) {
+		return newLang === "es" ? "/es" : "/";
+	}
+
+	// Find the page key by current URL
+	// URL_TRANSLATIONS is injected through buildConfig.js in i18n/buildConfig.js
+	const pageKey = Object.keys(window.URL_TRANSLATIONS).find(key => {
+		const translations = window.URL_TRANSLATIONS[key];
+		return translations.en === currentSlug || translations.es === currentSlug;
+	});
+
+	if (pageKey) {
+		const newSlug = window.URL_TRANSLATIONS[pageKey][newLang];
+		return newLang === "es" ? `/es/${newSlug}` : `/${newSlug}`;
+	}
+
+	// Fallback to simple prefix for unknown pages
+	return newLang === "es" ? `/es${currentPath}` : currentPath.replace("/es", "");
 }
 
 function switchLanguage(newLang) {
@@ -35,7 +48,6 @@ function switchLanguage(newLang) {
 	}
 
 	const newPath = getNewPath(newLang, currentPath);
-
 	window.location.href = newPath;
 }
 
@@ -50,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const storedLang = localStorage.getItem("preferredLanguage");
 	const currentPath = window.location.pathname;
-	const isSpanishPath = currentPath.startsWith("/es/");
+	const isSpanishPath = currentPath.startsWith("/es");
 
 	if (storedLang === "es" && !isSpanishPath) {
 		switchLanguage("es");

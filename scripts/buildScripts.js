@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const PATHS = require("../path-config");
+const { PATHS } = require("../path-config");
 
 function buildJavascriptFiles() {
 	const src = path.join(PATHS.SRC, "scripts");

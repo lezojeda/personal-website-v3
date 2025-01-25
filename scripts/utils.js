@@ -3,7 +3,8 @@ const markdownItAnchor = require("markdown-it-anchor");
 const crypto = require("crypto");
 const fs = require("fs");
 const nunjucks = require("nunjucks");
-const PATHS = require("../path-config");
+const { PATHS } = require("../path-config");
+
 
 function parseMarkdown(content) {
 	const md = markdownIt().use(markdownItAnchor);
@@ -55,10 +56,13 @@ async function checkIfFileChanged(outputPath, newContent) {
 }
 
 function configureNunjucksEnv(lang, templatePaths) {
-	const defaultPaths = [PATHS.getPagesDir(lang), PATHS.TEMPLATES];
+    const defaultPaths = [
+        PATHS.getPagesDir(lang),
+        PATHS.TEMPLATES
+    ];
 
-	const paths = templatePaths || defaultPaths;
-	return nunjucks.configure(paths);
+    const paths = templatePaths || defaultPaths;
+    return nunjucks.configure(paths);
 }
 
 module.exports = { parseMarkdown, formatDate, checkIfFileChanged, configureNunjucksEnv };
