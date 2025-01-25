@@ -4,18 +4,32 @@ const fs = require("fs");
 const app = express();
 const port = 3000;
 
-const distPath = path.join(__dirname, "dist")
+const distPath = path.join(__dirname, "dist");
+
+app.use(express.static(distPath));
 
 app.get("/", (req, res) => {
 	res.sendFile(path.join(distPath, "home.html"));
+});
+
+app.get("/es", (req, res) => {
+	res.sendFile(path.join(distPath, "es", "home.html"));
 });
 
 app.get("/blog", (req, res) => {
 	res.sendFile(path.join(distPath, "blog.html"));
 });
 
+app.get("/es/blog", (req, res) => {
+	res.sendFile(path.join(distPath, "es", "blog.html"));
+});
+
 app.get("/feed", (req, res) => {
 	res.sendFile(path.join(distPath, "feed.html"));
+});
+
+app.get("/es/feed", (req, res) => {
+	res.sendFile(path.join(distPath, "es", "feed.html"));
 });
 
 function getHTMLContent(slug) {

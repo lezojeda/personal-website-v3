@@ -1,31 +1,33 @@
-const nunjucks = require("nunjucks");
 const { formatDate } = require("./utils");
 const fs = require("fs");
 const path = require("path");
+const constants = require("../constants");
+const { configureNunjucksEnv } = require("./utils");
 
-const env = nunjucks.configure("src");
+function renderBlogPage(posts, langOutputDir, lang) {
+	const postsWithFormattedDate = posts.map(post => {
+		const formattedDate = formatDate(post.data.pubDate, lang);
+		return {
+			...post,
+			data: {
+				...post.data,
+				pubDate: formattedDate,
+			},
+		};
+	});
 
-function renderBlogPage(posts, siteTitle, siteDescription) {
-  const postsWithFormatteDate = posts.map((post) => {
-    const formattedDate = formatDate(post.data.pubDate);
-    return {
-      ...post,
-      data: {
-        ...post.data,
-        pubDate: formattedDate,
-      },
-    };
-  });
+	const context = {
+		pageTitle: `${constants.SITE_TITLE} - blog`,
+		posts: postsWithFormattedDate,
+		lang
+	};
 
-  const context = {
-    pageTitle: siteTitle,
-    description: siteDescription,
-    canonicalURL: "https://your-website.com",
-    posts: postsWithFormatteDate,
-  };
+	const env = configureNunjucksEnv(lang);
+	const blogHTML = env.render("blog.njk", context);
 
-  const blogHTML = env.render("blog.njk", context);
-  fs.writeFileSync(path.join("dist", "blog.html"), blogHTML);
+	const outputPath = path.join(langOutputDir, "blog.html")
+
+	fs.writeFileSync(outputPath, blogHTML);
 }
 
 module.exports = { renderBlogPage };

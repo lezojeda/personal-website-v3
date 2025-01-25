@@ -1,27 +1,30 @@
 {
-  "name": "personal-website-v3",
-  "version": "1.0.0",
-  "main": "build.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/luz-ojeda/personal-website-v3.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/luz-ojeda/personal-website-v3/issues"
-  },
-  "homepage": "https://github.com/luz-ojeda/personal-website-v3#readme",
-  "description": "",
-  "dependencies": {
-    "express": "^4.21.2",
-    "gray-matter": "^4.0.3",
-    "markdown-it": "^14.1.0",
-    "markdown-it-anchor": "^9.2.0",
-    "nunjucks": "^3.2.4"
-  }
+	"name": "personal-website-v3",
+	"version": "1.0.0",
+	"main": "build.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/luz-ojeda/personal-website-v3.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/luz-ojeda/personal-website-v3/issues"
+	},
+	"homepage": "https://github.com/luz-ojeda/personal-website-v3#readme",
+	"description": "",
+	"dependencies": {
+		"express": "^4.21.2",
+		"gray-matter": "^4.0.3",
+		"markdown-it": "^14.1.0",
+		"markdown-it-anchor": "^9.2.0",
+		"nunjucks": "^3.2.4"
+	},
+	"devDependencies": {
+		"prettier": "3.4.2"
+	}
 }

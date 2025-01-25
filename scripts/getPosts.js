@@ -3,40 +3,42 @@ const path = require("path");
 const matter = require("gray-matter");
 
 function sortByMostRecent(posts) {
-  return posts.sort((a, b) => {
-    const dateA = a.data.pubDate;
-    const dateB = b.data.pubDate;
+	return posts.sort((a, b) => {
+		const dateA = a.data.pubDate;
+		const dateB = b.data.pubDate;
 
-    return new Date(dateB) - new Date(dateA);
-  });
+		return new Date(dateB) - new Date(dateA);
+	});
 }
 
 module.exports = { sortByMostRecent };
 
-function getPosts(postsDir) {
-  const posts = fs
-    .readdirSync(postsDir)
-    .map((fileName) => {
-      const filePath = path.join(postsDir, fileName);
-      const fileContent = fs.readFileSync(filePath, "utf-8");
+function getPosts(lang = "en") {
+	const postsDir = path.join(__dirname, "..", "content", "blog", lang)
 
-      let postMatter;
+	const posts = fs
+		.readdirSync(postsDir)
+		.map(fileName => {
+			const filePath = path.join(postsDir, fileName);
+			const fileContent = fs.readFileSync(filePath, "utf-8");
 
-      try {
-        postMatter = matter(fileContent);
-      } catch (err) {
-        console.error(
-          `\x1b[31m Error parsing front matter in post: ${filePath} \x1b[0m\n`,
-          err,
-        );
-        return null;
-      }
+			let postMatter;
 
-      return postMatter;
-    })
-    .filter((post) => post !== null);
+			try {
+				postMatter = matter(fileContent);
+			} catch (err) {
+				console.error(
+					`\x1b[31m Error parsing front matter in post: ${filePath} \x1b[0m\n`,
+					err
+				);
+				return null;
+			}
 
-  return sortByMostRecent(posts);
+			return { ...postMatter, lang };
+		})
+		.filter(post => post !== null);
+
+	return sortByMostRecent(posts);
 }
 
 module.exports = { getPosts };

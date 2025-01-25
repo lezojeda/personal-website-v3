@@ -4,52 +4,68 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!-- Global Metadata -->
-		<meta name="generator" content="My Static Site Generator">
-
 		<!-- Canonical URL -->
-		<link rel="canonical" href="{{ canonicalURL }}">
+		<link rel="canonical" href="https://lojeda.co/">
 
 		<!-- Dynamic Meta Tags -->
 		<title>{{ pageTitle }}</title>
 		<meta name="title" content="{{ pageTitle }}">
-		<meta name="description" content="{{ description }}">
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website">
-		<meta property="og:url" content="{{ canonicalURL }}">
+		<meta property="og:url" content="https://lojeda.co/">
 		<meta property="og:title" content="{{ pageTitle }}">
-		<meta property="og:description" content="{{ description }}">
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image">
-		<meta property="twitter:url" content="{{ canonicalURL }}">
+		<meta property="twitter:url" content="https://lojeda.co/">
 		<meta property="twitter:title" content="{{ pageTitle }}">
-		<meta property="twitter:description" content="{{ description }}">
 
-		<!-- Link to CSS -->
-			<link rel="stylesheet" href="/styles/global.css">
+		<script src="/scripts/language.js"></script>
 	</head>
 	<body>
 		<header>
 			<nav>
 				<ul>
 					<li>
-						<a href="/">Home</a>
+						{% if lang == "es" %}
+							<a href="/es">Inicio</a>
+						{% else %}
+							<a href="/">Home</a>
+						{% endif %}
 					</li>
 					<li>
-						<a href="/blog">Blog</a>
+						{% if lang == "es" %}
+							<a href="/es/blog">Blog</a>
+						{% else %}
+							<a href="/blog">Blog</a>
+						{% endif %}
 					</li>
-				</ul>
-			</nav>
-		</header>
+					<li>
+						{% if lang == "es" %}
+							<a href="/es/feed">Feed</a>
+						{% else %}
+							<a href="/feed">Feed</a>
+						{% endif %}
+					</li>
+					<ul class="language-switcher">
+						<li>
+							<button data-lang="en" aria-label="Switch to English">🇺🇸</button>
+						</li>
+						<li>
+							<button data-lang="es" aria-label="Switch to Spanish">🇪🇸</button>
+						</li>
+					</ul>
+			</ul>
+		</nav>
+	</header>
 
-		<main>
-			{% block content %}{% endblock %}
-		</main>
+	<main>
+		{% block content %}{% endblock %}
+	</main>
 
-		<footer>
+	<footer>
 			footer
-		</footer>
-	</body>
+	</footer>
+</body>
 </html>

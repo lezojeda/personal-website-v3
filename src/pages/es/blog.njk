@@ -1,0 +1,17 @@
+{% extends "../../templates/base.njk" %}
+
+{% block content %}
+	<section>
+		<h1>Blog en español</h1>
+		<ul>
+			{% for post in posts %}
+				<li>
+					<h2>
+						<a href="/{{ post.data.slug }}">{{ post.data.title }}</a>
+					</h2>
+					<p>Publicado en {{ post.data.pubDate }}</p>
+				</li>
+			{% endfor %}
+		</ul>
+	</section>
+{% endblock %}

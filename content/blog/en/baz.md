@@ -2,7 +2,7 @@
 title: "Exploring Svelte"
 pubDate: 2025-01-10
 tags: ["Svelte", "JavaScript", "web development"]
-slug: es
+slug: exs
 ---
 
 # Exploring Svelte
