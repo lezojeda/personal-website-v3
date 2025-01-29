@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang }}">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,7 @@
 		<script src="/scripts/i18n.js"></script>
 		<script src="/scripts/language.js"></script>
 	</head>
-	<body>
+	<body style="margin: 0 auto; max-width: 80rem;">
 		<header>
 			<nav>
 				<ul>
@@ -63,32 +63,28 @@
 							<a href="/contact">Contact</a>
 						{% endif %}
 					</li>
-					<ul class="language-switcher">
-						<li>
-							<button 
-								data-lang="en" 
-								{% if translationSlug %}data-translation="{{ translationSlug }}"{% endif %}
-								aria-label="Switch to English">
-								🇺🇸
-							</button>
-						</li>
-						<li>
-							<button 
-								data-lang="es" 
-								{% if translationSlug %}data-translation="{{ translationSlug }}"{%endif%}
-								aria-label="Switch to Spanish">
-								🇪🇸
-							</button>
-						</li>
-					</ul>
 				</ul>
+				<div class="language-switcher">
+					<button 
+						data-lang="en" 
+						{% if translationSlug %}data-translation="{{ translationSlug }}"{% endif %}
+						aria-label="Switch to English">
+						🇺🇸
+					</button>
+					<button 
+						data-lang="es" 
+						{% if translationSlug %}data-translation="{{ translationSlug }}"{% endif %}
+						aria-label="Switch to Spanish">
+						🇪🇸
+					</button>
+				</div>
 			</nav>
-	</header>
+		</header>
 
-	<main>
-		{% block content %}{% endblock %}
-	</main>
+		<main>
+			{% block content %}{% endblock %}
+		</main>
 
-	{% include "includes/footer.njk" %}
-</body>
+		{% include "footer.njk" %}
+	</body>
 </html>

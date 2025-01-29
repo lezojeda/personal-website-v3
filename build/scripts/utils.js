@@ -1,7 +1,5 @@
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
-const crypto = require("crypto");
-const fs = require("fs");
 const nunjucks = require("nunjucks");
 const { PATHS } = require("../../config");
 
@@ -22,42 +20,10 @@ const formatDate = (date, lang, includeYearInDate = false) => {
 	return formattedDate;
 };
 
-function getScryptHash(content) {
-	return new Promise((resolve, reject) => {
-		const salt = "salt"; // TODO: do I need a better salt?
-		crypto.scrypt(content, salt, 64, (err, derivedKey) => {
-			if (err) reject(err);
-			resolve(derivedKey.toString("hex"));
-		});
-	});
-}
-
-async function checkIfFileChanged(outputPath, newContent) {
-	if (!fs.existsSync(outputPath)) {
-		const existingContent = fs.readFileSync(outputPath, "utf-8");
-
-		try {
-			const [existingHash, newHash] = await Promise.all([
-				getScryptHash(existingContent),
-				getScryptHash(newContent),
-			]);
-
-			if (existingHash === newHash) {
-				return false; // File hasn't changed
-			}
-		} catch (err) {
-			console.error("Error during hashing:", err);
-			return false;
-		}
-	}
-	console.log(`${outputPath} has changed`);
-	return true;
-}
-
 function configureNunjucksEnv(lang) {
 	const defaultPaths = [PATHS.getPagesDir(lang), PATHS.TEMPLATES, PATHS.INCLUDES];
 
 	return nunjucks.configure(defaultPaths);
 }
 
-module.exports = { parseMarkdown, formatDate, checkIfFileChanged, configureNunjucksEnv };
+module.exports = { parseMarkdown, formatDate, configureNunjucksEnv };

@@ -22,9 +22,9 @@ function buildJavascriptFiles() {
 			copyRecursiveSync(srcPath, destPath);
 		} else if (entry.isFile()) {
 			fs.copyFileSync(srcPath, destPath);
-			console.log(`\x1b[32mCopied ${srcPath} to ${destPath}\x1b[0m`);
 		}
 	}
+	console.log(`\x1b[32mFinished building js scripts\x1b[0m`);
 }
 
 module.exports = { buildJavascriptFiles };

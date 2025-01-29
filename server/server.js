@@ -44,18 +44,6 @@ app.get("/:slug", (req, res, next) => {
 	}
 });
 
-// Handle Spanish dynamic routes
-app.get("/es/:slug", (req, res, next) => {
-	const { slug } = req.params;
-	const filePath = path.join(PATHS.DIST, "es", `${slug}.html`);
-
-	if (fs.existsSync(filePath)) {
-		res.sendFile(filePath);
-	} else {
-		next();
-	}
-});
-
 app.use((req, res) => {
 	res.status(404).send("Page not found");
 });

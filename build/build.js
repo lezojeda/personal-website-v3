@@ -9,21 +9,17 @@ const constants = require("./config/constants");
 const { PATHS } = require("../config");
 const { buildBrowserConfig } = require("./config/i18n/buildConfig");
 
-function cleanDirectory(directory) {
-	if (fs.existsSync(directory)) {
-		fs.rmSync(directory, { recursive: true });
-	}
-	fs.mkdirSync(directory);
-}
-
 // Clean and create dist directory
-cleanDirectory(PATHS.DIST);
+if (fs.existsSync(PATHS.DIST)) {
+	fs.rmSync(PATHS.DIST, { recursive: true });
+} else {
+	fs.mkdirSync(PATHS.DIST);
+}
 
 buildJavascriptFiles();
 buildBrowserConfig();
 
 constants.LANGUAGES.forEach(lang => {
-	/** Setup output directory **/
 	const langOutputDir = PATHS.getOutputDir(lang);
 	if (!fs.existsSync(langOutputDir)) {
 		fs.mkdirSync(langOutputDir, { recursive: true });
@@ -57,7 +53,7 @@ constants.LANGUAGES.forEach(lang => {
 			try {
 				await renderPostPage(post, postOutputPath, lang);
 			} catch (err) {
-				console.error(`Error generating post "${post.data.title}":`, err);
+				console.error(`Error generating page for post "${post.data.title}":`, err);
 				console.log();
 			}
 		}

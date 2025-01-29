@@ -3,6 +3,7 @@ const path = require("path");
 const {URL_MAPPINGS, PATHS} = require("../../../config");
 
 function buildBrowserConfig() {
+	// Provide url mappings for language.js in the browser
 	const configContent = `window.URL_TRANSLATIONS = ${JSON.stringify(URL_MAPPINGS, null, 2)};`;
 
 	const outputDir = path.join(PATHS.DIST, "scripts");

@@ -1,7 +1,6 @@
 const { formatDate, checkIfFileChanged, parseMarkdown, configureNunjucksEnv } = require("./utils");
 const { render } = require("./renderPage");
 const fs = require("fs");
-const { PATHS } = require("../../config");
 
 /**
  * Renders a blog post page
@@ -24,8 +23,6 @@ async function renderPostPage(post, outputPath, lang) {
 	if (fs.existsSync(outputPath)) {
 		const env = configureNunjucksEnv(lang);
 		const newHTML = env.render("post.njk", context);
-		const fileChanged = await checkIfFileChanged(outputPath, newHTML);
-		if (!fileChanged) return;
 	}
 
 	render({
@@ -34,8 +31,6 @@ async function renderPostPage(post, outputPath, lang) {
 		context,
 		lang,
 	});
-
-	console.log(`Post ${post.data.slug} updated or created.`);
 }
 
 module.exports = { renderPostPage };
